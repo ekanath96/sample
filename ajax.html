@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<Title>AJAX test</Title>
+<script language="javascript">
+function CretexmlHttp()
+{  
+  try
+     {
+       XmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+  //Here we will assign ready state change event where we will 
+ // handle the response data from the server  
+  XmlHttp.onreadystatechange=stateChangeEventHandler;
+      }
+      //If you have an older version of Internet Explorer, you will have
+      // Microsoft.XMLHTTP instead of Msxml2.XMLHTTP
+   catch (e)
+      {
+       XmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    return XmlHttp;
+}
+function stateChangeEventHandler()
+{
+//  check whether the data  is loaded
+if (XmlHttp.readyState==4)
+  {  // check whether the status is ok
+  if (XmlHttp.status==200)
+ {
+ document.all ("txtAjax").value=XmlHttp.responseText
+ }
+  else
+ {
+  alert ("Error Occurred")
+ }
+  }
+}
+function getData(fileName)
+{
+//call the createxmlhttp function which will create xmlHttp object and assign 
+var XmlHttp= CretexmlHttp();
+//Assigns method, destination URL, and other optional attributes of a 
+//pending request.
+XmlHttp.open("GET", fileName,true)
+// Sends an HTTP request to the server and receives a response
+ XmlHttp.send(null)
+ return true;
+}
+</script>
+</HEAD>
+<body>
+  <form>
+   <INPUT id="txtAjax" type="text" name="Text1">
+   <br>
+   <button onclick="getData('Helloworld1.txt')" 
+
+	type="button" ID="Button1">Helloworld1</button>
+   <br>
+   <button onclick="getData('Helloworld2.txt')" 
+
+	type="button" ID="Button2">Helloworld2</button>
+  </form>
+ </body>
+</HTML>
